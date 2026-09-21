@@ -106,7 +106,7 @@ Editing existing records or changing their status after creation, authentication
 ## Phase 1 Completion Criteria
 
 - [X] Both members agree on the problem, features, routes, data model, and scope.
-- [ ] Instructor confirms the app idea and proposed data source.
+- [X] Instructor confirms the app idea and proposed data source.
 - [X] MockAPI resource setup and endpoint are working; account limits are sufficient for the project.
 - [X] Both member names and responsibilities are confirmed.
 - [X] This proposal is added to the shared GitHub repository; initial tasks have owners and a branch/PR workflow is agreed.
