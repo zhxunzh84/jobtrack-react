@@ -1,10 +1,10 @@
 import ApplicationCard from './ApplicationCard';
 
-function ApplicationList({ applications }) {
+function ApplicationList({ applications, onDelete }) {
   return (
     <div>
       {applications.map(application => (
-        <ApplicationCard key={application.id} application={application} />
+        <ApplicationCard key={application.id} application={application} onDelete={onDelete} />
       ))}
     </div>
   )
