@@ -38,11 +38,26 @@ function ApplicationsPage() {
   if (applications.length === 0) {
     return <p>No applications found.</p>
   }
-
+  function handleDelete(id) {
+    fetch(`https://6ab0872f9751d2b03e6c31a2.mockapi.io/api/v1/applications/${id}`, {
+      method: "DELETE",
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Failed to delete application")
+        }
+        setApplications((prevApplications) =>
+          prevApplications.filter((application) => application.id !== id)
+        )
+      })
+      .catch((error) => {
+        setError(error.message)
+      })
+  }
   return (
     <main>
       <h1>Applications</h1>
-      <ApplicationList applications={applications} />
+      <ApplicationList applications={applications} onDelete={handleDelete} />
     </main>
   )
 }
