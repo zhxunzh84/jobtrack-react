@@ -6,6 +6,7 @@ function ApplicationsPage() {
   const [applications, setApplications] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState("")
+  const [selectedStatus, setSelectedStatus] = useState("All")
 
   useEffect(() => {
     fetch("https://6ab0872f9751d2b03e6c31a2.mockapi.io/api/v1/applications")
@@ -54,10 +55,24 @@ function ApplicationsPage() {
         setError(error.message)
       })
   }
+  // Filter applications based on the selected status before rendering
+  const filteredApplications = selectedStatus === "All"
+    ? applications
+    : applications.filter(application => application.status === selectedStatus)
   return (
     <main>
       <h1>Applications</h1>
-      <ApplicationList applications={applications} onDelete={handleDelete} />
+      <label>
+        Filter by status:
+        <select value={selectedStatus} onChange={(e) => setSelectedStatus(e.target.value)}>
+          <option value="All">All</option>
+          <option value="Applied">Applied</option>
+          <option value="Interview">Interview</option>
+          <option value="Offer">Offer</option>
+          <option value="Rejected">Rejected</option>
+        </select>
+      </label>
+      <ApplicationList applications={filteredApplications} onDelete={handleDelete} />
     </main>
   )
 }
