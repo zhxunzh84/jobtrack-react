@@ -2,17 +2,42 @@ import { useEffect, useState } from "react"
 import ApplicationList from "../components/ApplicationList"
 
 function ApplicationsPage() {
+  // State variables for applications, loading status, and error message
   const [applications, setApplications] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState("")
 
   useEffect(() => {
-    // Fetch applications from an API 
-    const fetchApplications = async () => {
-      const response = await fetch("https://6ab0872f9751d2b03e6c31a2.mockapi.io/api/v1/applications")
-      const data = await response.json()
-      setApplications(data)
-    }
-    fetchApplications()
+    fetch("https://6ab0872f9751d2b03e6c31a2.mockapi.io/api/v1/applications")
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Failed to load applications")
+        }
+
+        return response.json()
+      })
+      .then((data) => {
+        setApplications(data)
+      })
+      .catch((error) => {
+        setError(error.message)
+      })
+      .finally(() => {
+        setLoading(false)
+      })
   }, [])
+  // Conditional rendering for loading, error, or empty state before displaying the list of applications
+  if (loading) {
+    return <p>Loading applications...</p>
+  }
+
+  if (error) {
+    return <p>{error}</p>
+  }
+
+  if (applications.length === 0) {
+    return <p>No applications found.</p>
+  }
 
   return (
     <main>
