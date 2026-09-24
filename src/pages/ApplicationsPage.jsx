@@ -62,17 +62,32 @@ function ApplicationsPage() {
   return (
     <main>
       <h1>Applications</h1>
-      <label>
-        Filter by status:
-        <select value={selectedStatus} onChange={(e) => setSelectedStatus(e.target.value)}>
+      <p className="page-subtitle">
+        Track and manage your job applications.
+      </p>
+
+      <div className="filter-row">
+        <label htmlFor="status-filter">
+          Filter by status
+        </label>
+
+        <select
+          id="status-filter"
+          value={selectedStatus}
+          onChange={(event) => setSelectedStatus(event.target.value)}
+        >
           <option value="All">All</option>
           <option value="Applied">Applied</option>
           <option value="Interview">Interview</option>
           <option value="Offer">Offer</option>
           <option value="Rejected">Rejected</option>
         </select>
-      </label>
-      <ApplicationList applications={filteredApplications} onDelete={handleDelete} />
+      </div>
+
+      <ApplicationList
+        applications={filteredApplications}
+        onDelete={handleDelete}
+      />
     </main>
   )
 }
