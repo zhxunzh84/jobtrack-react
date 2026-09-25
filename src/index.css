@@ -1,133 +1,250 @@
 :root {
-  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-    sans-serif;
-  color: #1f2937;
-  background-color: #f3f4f6;
+  --ink: #1c2825;
+  --muted: #65716c;
+  --paper: #fffdf8;
+  --canvas: #f3f0e8;
+  --line: #d8d4c9;
+  --accent: #176b59;
+  --focus: #e39c35;
+  --danger: #a33a2b;
+  font:
+    16px/1.5 Georgia,
+    "Times New Roman",
+    serif;
+  color: var(--ink);
+  background: var(--canvas);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
 }
-
 * {
   box-sizing: border-box;
 }
-
 body {
   margin: 0;
   min-width: 320px;
-  min-height: 100vh;
-  background-color: #f3f4f6;
 }
-
-main {
-  max-width: 960px;
-  margin: 0 auto;
-  padding: 48px 24px;
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
 }
-
-h1 {
-  margin: 0 0 8px;
-  font-size: 2rem;
-  color: #111827;
+a {
+  color: inherit;
 }
-
-.page-subtitle {
-  margin: 0 0 32px;
-  color: #6b7280;
+.app-shell {
+  min-height: 100svh;
 }
-
-.filter-row {
+.topbar {
   display: flex;
   align-items: center;
-  gap: 12px;
-  margin-bottom: 24px;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.25rem max(1.25rem, calc((100vw - 1080px) / 2));
+  background: var(--paper);
+  border-bottom: 1px solid var(--line);
 }
-
-.filter-row label {
-  font-weight: 600;
+.brand {
+  color: var(--accent);
+  font-size: 1.45rem;
+  font-weight: 700;
+  text-decoration: none;
+  letter-spacing: 0.02em;
 }
-
-.filter-row select {
-  padding: 8px 12px;
-  border: 1px solid #d1d5db;
-  border-radius: 8px;
-  background-color: white;
+nav {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
   font-size: 0.95rem;
 }
-
+nav a {
+  text-decoration: none;
+  color: var(--muted);
+}
+nav a:hover,
+.back-link:hover {
+  color: var(--accent);
+}
+.nav-action {
+  color: var(--accent);
+  font-weight: 700;
+}
+.page-content {
+  width: min(100% - 2.5rem, 1080px);
+  margin: 0 auto;
+  padding: 4rem 0;
+}
+.page-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-bottom: 2.5rem;
+}
+.eyebrow {
+  margin: 0 0 0.5rem;
+  color: var(--accent);
+  font:
+    700 0.72rem/1.2 Arial,
+    sans-serif;
+  letter-spacing: 0.16em;
+}
+h1,
+h2 {
+  margin: 0;
+  color: var(--ink);
+}
+h1 {
+  font-size: clamp(2.3rem, 6vw, 4.5rem);
+  line-height: 0.98;
+  font-weight: 400;
+}
+h2 {
+  font-size: 1.35rem;
+  line-height: 1.2;
+}
+.page-intro {
+  margin: 0.8rem 0 0;
+  color: var(--muted);
+}
+.button {
+  display: inline-block;
+  text-decoration: none;
+}
+.filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--line);
+}
+.filter-button {
+  padding: 0.45rem 0.8rem;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+}
+.filter-button--active {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: #fff;
+}
 .application-list {
   display: grid;
-  gap: 16px;
+  gap: 0.85rem;
 }
-
 .application-card {
-  background-color: white;
-  border: 1px solid #e5e7eb;
-  border-radius: 12px;
-  padding: 20px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-}
-
-.application-card-header {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
-  gap: 16px;
+  gap: 1rem;
+  padding: 1.25rem;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--accent);
 }
-
-.application-card h2 {
-  margin: 0 0 4px;
-  font-size: 1.25rem;
-  color: #111827;
+.card-title-row {
+  display: flex;
+  align-items: start;
+  flex-wrap: wrap;
+  gap: 0.75rem;
 }
-
-.job-title {
-  margin: 0;
-  color: #4b5563;
+.company-name {
+  margin: 0.35rem 0 0;
+  font-size: 1.05rem;
 }
-
-.status-badge {
-  padding: 4px 10px;
+.application-date,
+.notes {
+  margin: 0.45rem 0 0;
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+.notes {
+  max-width: 58rem;
+}
+.status {
+  padding: 0.2rem 0.5rem;
   border-radius: 999px;
-  background-color: #e5e7eb;
-  font-size: 0.8rem;
-  font-weight: 600;
-  white-space: nowrap;
+  background: #e9e5d9;
+  color: var(--muted);
+  font:
+    700 0.72rem Arial,
+    sans-serif;
 }
-
-.application-meta {
-  margin-top: 16px;
-  color: #6b7280;
+.status--interview {
+  background: #f7dfb1;
+  color: #805412;
+}
+.status--offer {
+  background: #cce7d6;
+  color: #1f6840;
+}
+.status--rejected {
+  background: #f4d3cd;
+  color: #8b2e20;
+}
+.delete-button {
+  align-self: center;
+  border: 0;
+  background: transparent;
+  color: var(--danger);
+  cursor: pointer;
+  font:
+    0.85rem Arial,
+    sans-serif;
+}
+.empty-state {
+  padding: 4rem 1rem;
+  text-align: center;
+  border: 1px dashed var(--line);
+  background: rgba(255, 253, 248, 0.45);
+}
+.empty-state p {
+  margin: 0.6rem 0 1.25rem;
+  color: var(--muted);
+}
+.form-page {
+  max-width: 38rem;
+}
+.back-link {
+  display: inline-block;
+  margin-bottom: 3.5rem;
+  color: var(--muted);
   font-size: 0.9rem;
 }
-
-.application-notes {
-  margin-top: 12px;
-  color: #374151;
+.form-page h1 {
+  margin-bottom: 0.75rem;
 }
-
-.application-actions {
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 16px;
+.form-page .application-form {
+  margin-top: 2rem;
 }
-
-.delete-button {
-  padding: 8px 14px;
-  border: none;
-  border-radius: 8px;
-  background-color: #dc2626;
-  color: white;
-  cursor: pointer;
-  font-weight: 600;
-}
-
-.delete-button:hover {
-  background-color: #b91c1c;
-}
-
-.status-message {
-  padding: 20px;
-  background-color: white;
-  border: 1px solid #e5e7eb;
-  border-radius: 10px;
+@media (max-width: 620px) {
+  .topbar,
+  .page-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+  .topbar {
+    padding: 1rem 1.25rem;
+  }
+  nav {
+    width: 100%;
+    justify-content: space-between;
+  }
+  .page-content {
+    width: min(100% - 2rem, 38rem);
+    padding: 2.5rem 0;
+  }
+  .application-card {
+    flex-direction: column;
+  }
+  .delete-button {
+    align-self: flex-start;
+    padding: 0;
+  }
 }
 
 .status-applied {
