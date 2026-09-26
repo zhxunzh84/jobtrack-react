@@ -5,13 +5,18 @@ function ApplicationsPage({
   applications,
   loading,
   error,
-  onDelete
+  onDelete,
 }) {
-  // State variables for applications, loading status, and error message
-  
   const [selectedStatus, setSelectedStatus] = useState("All")
 
-  // Conditional rendering for loading, error, or empty state before displaying the list of applications
+  const filteredApplications =
+    selectedStatus === "All"
+      ? applications
+      : applications.filter(
+          (application) =>
+            application.status === selectedStatus
+        )
+
   if (loading) {
     return <p>Loading applications...</p>
   }
@@ -20,17 +25,10 @@ function ApplicationsPage({
     return <p>{error}</p>
   }
 
-  if (applications.length === 0) {
-    return <p>No applications found.</p>
-  }
-  
-  // Filter applications based on the selected status before rendering
-  const filteredApplications = selectedStatus === "All"
-    ? applications
-    : applications.filter(application => application.status === selectedStatus)
   return (
     <main>
       <h1>Applications</h1>
+
       <p className="page-subtitle">
         Track and manage your job applications.
       </p>
@@ -43,7 +41,9 @@ function ApplicationsPage({
         <select
           id="status-filter"
           value={selectedStatus}
-          onChange={(event) => setSelectedStatus(event.target.value)}
+          onChange={(event) =>
+            setSelectedStatus(event.target.value)
+          }
         >
           <option value="All">All</option>
           <option value="Applied">Applied</option>
@@ -53,10 +53,26 @@ function ApplicationsPage({
         </select>
       </div>
 
-      <ApplicationList
-        applications={filteredApplications}
-        onDelete={onDelete}
-      />
+      {filteredApplications.length === 0 ? (
+        <div className="empty-state">
+          <h2>
+            {applications.length === 0
+              ? "No applications yet"
+              : "No matching applications"}
+          </h2>
+
+          <p>
+            {applications.length === 0
+              ? "Add your first application to start tracking your search."
+              : "Try another status filter."}
+          </p>
+        </div>
+      ) : (
+        <ApplicationList
+          applications={filteredApplications}
+          onDelete={onDelete}
+        />
+      )}
     </main>
   )
 }
