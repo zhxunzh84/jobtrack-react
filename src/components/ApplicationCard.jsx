@@ -1,34 +1,40 @@
 function ApplicationCard({ application, onDelete }) {
   return (
-    <div className="application-card">
-      <div className="application-card-header">
-        <div>
-          <h2>{application.company}</h2>
-          <p className="job-title">{application.jobTitle}</p>
+    <article className="application-card">
+      <div className="card-main">
+        <div className="card-title-row">
+          <h2>{application.jobTitle}</h2>
+
+          <span
+            className={`status status-${application.status.toLowerCase()}`}
+          >
+            {application.status}
+          </span>
         </div>
 
-        <span className={`status-badge status-${application.status.toLowerCase()}`}>
-          {application.status}
-        </span>
+        <p className="company-name">
+          {application.company}
+        </p>
+
+        <p className="application-date">
+          Applied {application.appliedDate}
+        </p>
+
+        {application.notes && (
+          <p className="notes">
+            {application.notes}
+          </p>
+        )}
       </div>
 
-      <p className="application-meta">
-        Applied: {application.appliedDate}
-      </p>
-
-      <p className="application-notes">
-        {application.notes}
-      </p>
-
-      <div className="application-actions">
-        <button
-          className="delete-button"
-          onClick={() => onDelete(application.id)}
-        >
-          Delete
-        </button>
-      </div>
-    </div>
+      <button
+        className="delete-button"
+        type="button"
+        onClick={() => onDelete(application.id)}
+      >
+        Delete
+      </button>
+    </article>
   )
 }
 
